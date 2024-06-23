@@ -38,7 +38,7 @@ interface PhotoLinks {
   download: string;
 }
 
-interface Photo {
+export interface Photo {
   id: string;
   created_at: string;
   width: number;
@@ -53,13 +53,3 @@ interface Photo {
   urls: PhotoUrls;
   links: PhotoLinks;
 }
-
-export type Images = Photo[] | [];
-
-export type ModalData =
-  | {}
-  | {
-      src: string;
-      alt: string;
-    };
-
