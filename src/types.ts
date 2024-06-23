@@ -9,3 +9,13 @@ export type ModalData =
       alt: string;
     };
 
+    export interface PhotoUrls {
+      raw: string;
+      full: string;
+      regular: string;
+      small: string;
+      thumb: string;
+    }
+    
+
+export type OnOpenModalCallback = (modalData: ModalData) => void;

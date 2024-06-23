@@ -1,4 +1,5 @@
 import css from "./ImageCard.module.css";
+import { ImageCardProps } from "./ImageCard.types";
 
 export default function ImageCard({
   imageData: {
@@ -7,7 +8,7 @@ export default function ImageCard({
     urls: { small, regular },
   },
   onOpenModal,
-}) {
+} :ImageCardProps) {
   function handleModalClick() {
     onOpenModal({ src: regular, alt: description });
   }

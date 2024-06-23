@@ -1,3 +1,5 @@
+import { PhotoUrls } from "./types";
+
 interface UserProfileImage {
   small: string;
   medium: string;
@@ -24,13 +26,6 @@ interface User {
   links: UserLinks;
 }
 
-interface PhotoUrls {
-  raw: string;
-  full: string;
-  regular: string;
-  small: string;
-  thumb: string;
-}
 
 interface PhotoLinks {
   self: string;
