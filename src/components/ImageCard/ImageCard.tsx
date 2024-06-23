@@ -8,7 +8,9 @@ export default function ImageCard({
     urls: { small, regular },
   },
   onOpenModal,
-} :ImageCardProps) {
+} : ImageCardProps) {
+
+
   function handleModalClick() {
     onOpenModal({ src: regular, alt: description });
   }
