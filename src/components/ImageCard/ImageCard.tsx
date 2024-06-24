@@ -1,3 +1,4 @@
+import { StandardCallBack } from "../../types";
 import css from "./ImageCard.module.css";
 import { ImageCardProps } from "./ImageCard.types";
 
@@ -8,12 +9,10 @@ export default function ImageCard({
     urls: { small, regular },
   },
   onOpenModal,
-} : ImageCardProps) {
-
-
-  function handleModalClick() {
+}: ImageCardProps) {
+  const handleModalClick: StandardCallBack = (): void => {
     onOpenModal({ src: regular, alt: description });
-  }
+  };
 
   return (
     <>
