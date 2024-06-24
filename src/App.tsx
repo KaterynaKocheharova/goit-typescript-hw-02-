@@ -14,6 +14,7 @@ import {
   StandardCallBack,
 } from "./types";
 import { HandleSubmitCallbackType } from "./components/SearchBar/SearchBar.types";
+import { UnsplashResponse } from "./api.types";
 
 export default function App() {
   const [images, setImages] = useState<Images>([]);
@@ -54,7 +55,6 @@ export default function App() {
         if (currentQuery !== "") {
           setIsLoading(true);
           setError(false);
-          // !!! add typization
           const imageData = await getImages(currentQuery, currentPage);
           if (!imageData.results.length) {
             setIsEmpty(true);
