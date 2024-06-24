@@ -3,10 +3,11 @@ import toast, { Toaster } from "react-hot-toast";
 import Container from "../Container/Container";
 import css from "./SearchBar.module.css";
 import { SeacrhBarPropTypes } from "./SearchBar.types";
+import { StandardCallBack } from "../../types";
 
-let toastId : string;
+let toastId: string;
 
-const notify = () => {
+const notify: StandardCallBack = (): void => {
   toastId = toast(<div onClick={closeToast}>Fields should not be empty</div>, {
     duration: 2000,
     position: "top-right",
@@ -14,14 +15,16 @@ const notify = () => {
   });
 };
 
-function closeToast() {
+const closeToast: StandardCallBack = (): void => {
   toast.remove(toastId);
-}
+};
 
 export default function SearchBar({ onSubmit }: SeacrhBarPropTypes) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-      const searchValue = (event.currentTarget.elements.namedItem('searchTarget') as HTMLInputElement).value.trim();
+    const searchValue = (
+      event.currentTarget.elements.namedItem("searchTarget") as HTMLInputElement
+    ).value.trim();
     if (searchValue === "") {
       notify();
     } else {
