@@ -7,7 +7,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMore";
 import ImageModal from "./components/ImageModal/ImageModal";
 import getImages from "./api";
-import handleLoadMoreScroll from "./scroll";
+// import handleLoadMoreScroll from "./scroll";
 import { ModalData } from "./types";
 import { Images } from "./types";
 
@@ -32,6 +32,7 @@ export default function App() {
     setModalData(modalData);
   }
 
+  // !!! add typization ???
   function closeModal() {
     setIsOpen(false);
     document.body.style.overflow = "visible";
@@ -43,6 +44,7 @@ export default function App() {
         if (currentQuery !== "") {
           setIsLoading(true);
           setError(false);
+          // !!! add typization
           const imageData = await getImages(currentQuery, currentPage);
           if (!imageData.results.length) {
             setIsEmpty(true);
