@@ -1,8 +1,10 @@
+import { FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Container from "../Container/Container";
 import css from "./SearchBar.module.css";
+import { SeacrhBarPropTypes } from "./SearchBar.types";
 
-let toastId;
+let toastId : string;
 
 const notify = () => {
   toastId = toast(<div onClick={closeToast}>Fields should not be empty</div>, {
@@ -16,11 +18,10 @@ function closeToast() {
   toast.remove(toastId);
 }
 
-export default function SearchBar({ onSubmit }) {
-  function handleSubmit(event) {
+export default function SearchBar({ onSubmit }: SeacrhBarPropTypes) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const searchValue =
-      event.currentTarget.elements.searchTarget.value.trim("");
+      const searchValue = (event.currentTarget.elements.namedItem('searchTarget') as HTMLInputElement).value.trim();
     if (searchValue === "") {
       notify();
     } else {
