@@ -7,10 +7,13 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMore";
 import ImageModal from "./components/ImageModal/ImageModal";
 import getImages from "./api";
-// import handleLoadMoreScroll from "./scroll";
-import { ModalData } from "./types";
-import { Images } from "./types";
-
+import {
+  Images,
+  ModalData,
+  OnOpenModalCallback,
+  StandardCallBack,
+} from "./types";
+import { HandleSubmitCallbackType } from "./components/SearchBar/SearchBar.types";
 
 export default function App() {
   const [images, setImages] = useState<Images>([]);
@@ -23,20 +26,27 @@ export default function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState<ModalData>({});
 
-
-  // const galleryItemRef = useRef();
-
-  function openModal(modalData: ModalData) {
+  const openModal: OnOpenModalCallback = (modalData: ModalData): void => {
     setIsOpen(true);
     document.body.style.overflow = "hidden";
     setModalData(modalData);
-  }
+  };
 
-  // !!! add typization ???
-  function closeModal() {
+  const closeModal: StandardCallBack = (): void => {
     setIsOpen(false);
     document.body.style.overflow = "visible";
-  }
+  };
+
+  const handleSubmit: HandleSubmitCallbackType = (query: string): void => {
+    setIsEmpty(false);
+    setCurrentQuery(query);
+    setCurrentPage(1);
+    setImages([]);
+  };
+
+  const handleLoadMoreBtnClick: StandardCallBack = (): void => {
+    setCurrentPage(currentPage + 1);
+  };
 
   useEffect(() => {
     async function handleSearch() {
@@ -66,20 +76,6 @@ export default function App() {
     handleSearch();
   }, [currentQuery, currentPage]);
 
-
-  function handleSubmit(query: string) {
-    setIsEmpty(false);
-    setCurrentQuery(query);
-    setCurrentPage(1);
-    setImages([]);
-  }
-
-  function handleLoadMoreBtnClick() {
-    setCurrentPage(currentPage + 1);
-  }
-
-
-
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
@@ -90,10 +86,7 @@ export default function App() {
           )}
           {isEmpty && <p>No images found! Sorry!</p>}
           {images.length > 0 && (
-            <ImageGallery
-              images={images}
-              onOpenModal={openModal}
-            />
+            <ImageGallery images={images} onOpenModal={openModal} />
           )}
           {isLoading && <Loader />}
           {error && <ErrorMessage />}
@@ -113,54 +106,44 @@ export default function App() {
   );
 }
 
+// import handleLoadMoreScroll from "./scroll";
 
-
-
-
-
+// const galleryItemRef = useRef();
 
 // useEffect(() => {
 //   if (currentPage === 1) return;
 //   handleLoadMoreScroll(galleryItemRef.current);
 // }, [images, currentPage]);
 
-
-
-
-
-
-
-
-  // return (
-  //   <div>
-  //     <SearchBar onSubmit={handleSubmit} />
-  //     <main>
-  //       <Container notHeader>
-  //         {!images.length && !isLoading && !isEmpty && (
-  //           <p>Let's begin search!🤗</p>
-  //         )}
-  //         {isEmpty && <p>No images found! Sorry!</p>}
-  //         {images.length > 0 && (
-  //           <ImageGallery
-  //             ref={galleryItemRef}
-  //             images={images}
-  //             onOpenModal={openModal}
-  //           />
-  //         )}
-  //         {isLoading && <Loader />}
-  //         {error && <ErrorMessage />}
-  //         {images.length > 0 && !isLoading && currentPage !== totalPages && (
-  //           <LoadMoreBtn onClick={handleLoadMoreBtnClick} />
-  //         )}
-  //         {modalIsOpen && (
-  //           <ImageModal
-  //             onCloseModal={closeModal}
-  //             modalIsOpen={modalIsOpen}
-  //             modalData={modalData}
-  //           />
-  //         )}
-  //       </Container>
-  //     </main>
-  //   </div>
-  // );
-
+// return (
+//   <div>
+//     <SearchBar onSubmit={handleSubmit} />
+//     <main>
+//       <Container notHeader>
+//         {!images.length && !isLoading && !isEmpty && (
+//           <p>Let's begin search!🤗</p>
+//         )}
+//         {isEmpty && <p>No images found! Sorry!</p>}
+//         {images.length > 0 && (
+//           <ImageGallery
+//             ref={galleryItemRef}
+//             images={images}
+//             onOpenModal={openModal}
+//           />
+//         )}
+//         {isLoading && <Loader />}
+//         {error && <ErrorMessage />}
+//         {images.length > 0 && !isLoading && currentPage !== totalPages && (
+//           <LoadMoreBtn onClick={handleLoadMoreBtnClick} />
+//         )}
+//         {modalIsOpen && (
+//           <ImageModal
+//             onCloseModal={closeModal}
+//             modalIsOpen={modalIsOpen}
+//             modalData={modalData}
+//           />
+//         )}
+//       </Container>
+//     </main>
+//   </div>
+// );
