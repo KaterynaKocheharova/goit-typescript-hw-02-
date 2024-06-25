@@ -14,7 +14,6 @@ import {
   StandardCallBack,
 } from "./types";
 import { HandleSubmitCallbackType } from "./components/SearchBar/SearchBar.types";
-import { UnsplashResponse } from "./api.types";
 
 export default function App() {
   const [images, setImages] = useState<Images>([]);
@@ -27,18 +26,19 @@ export default function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState<ModalData>({});
 
-  const openModal: OnOpenModalCallback = (modalData: ModalData): void => {
+
+  const openModal: OnOpenModalCallback = (modalData): void => {
     setIsOpen(true);
     document.body.style.overflow = "hidden";
     setModalData(modalData);
   };
 
-  const closeModal: StandardCallBack = (): void => {
+  const closeModal: StandardCallBack = () : void => {
     setIsOpen(false);
     document.body.style.overflow = "visible";
   };
 
-  const handleSubmit: HandleSubmitCallbackType = (query: string): void => {
+  const handleSubmit: HandleSubmitCallbackType = (query):  void => {
     setIsEmpty(false);
     setCurrentQuery(query);
     setCurrentPage(1);

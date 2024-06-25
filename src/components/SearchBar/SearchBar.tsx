@@ -19,12 +19,37 @@ const closeToast: StandardCallBack = (): void => {
   toast.remove(toastId);
 };
 
+
+// !!! OPTION 1 
+
+// export default function SearchBar({ onSubmit }: SeacrhBarPropTypes) {
+//   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+//     event.preventDefault();
+//     const searchValue = (
+//       event.currentTarget.elements.namedItem("searchTarget") as HTMLInputElement
+//     ).value.trim().toLowerCase();
+//     if (searchValue === "") {
+//       notify();
+//     } else {
+//       onSubmit(searchValue);
+//       event.currentTarget.reset();
+//     }
+//   }
+
+
+// !!! OPTION 2 
+
+interface Target extends EventTarget {
+  searchTarget: HTMLInputElement;
+}
+
+
 export default function SearchBar({ onSubmit }: SeacrhBarPropTypes) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const searchValue = (
-      event.currentTarget.elements.namedItem("searchTarget") as HTMLInputElement
-    ).value.trim();
+    const target = event.target as Target;
+    const searchValue = 
+      target.searchTarget.value.trim().toLowerCase();
     if (searchValue === "") {
       notify();
     } else {
